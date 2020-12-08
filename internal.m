@@ -369,7 +369,7 @@ static int window_x11_raise(lua_State* L) {
 //     return 1;
 // }
 
-/// hs.x11.window:close() -> bool
+/// hs.window.x11:close() -> bool
 /// Method
 /// Closes the window
 ///
