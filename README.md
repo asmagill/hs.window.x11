@@ -3,6 +3,8 @@ hs.window.x11
 
 *While this will now compile as a universal library as described at https://github.com/asmagill/hammerspoon_asm/blob/master/README.md, it will not work unless Hammerspoon is running on an Intel mac or in Rosetta mode. This is because XQuartz (and other macos X11 window environments?) have not been compiled as universal binaries yet. There is nothing that can be done about this until they are converted and/or rebuilt by their maintainers.*
 
+*2nd Update: a clean MacPorts install compiling `xorg-server` for the arm architecture does link properly on an M1 machine. Subsequent testing and development will be performed against this installation rather than XQuartz, as XQuartz appears to be unmaintained at present.*
+
 - - -
 
 This is a proof of concept module for Hammerspoon which attempts to mirror the `hs.window` module for X11 windows. It has only been tested with [XQuartz](https://www.xquartz.org) though it may work with other macOS X11 implementations.

@@ -25,12 +25,13 @@ local log          = require("hs.logger").new(USERDATA_TAG, settings.get(SETTING
 local window   = require("hs.window")
 local inspect  = require("hs.inspect")
 local geometry = require("hs.geometry")
+local timer    = require("hs.timer")
 
 local _X11LibPaths = {
-    "/opt/X11/lib/libX11.6.dylib",   -- XQuartz
-    "/opt/local/lib/libX11.6.dylib", -- MacPorts
-    "/sw/X11/lib/libX11.6.dylib",    -- Fink?
-    "/usr/local/X11/libX11.6.dylib", -- anyone?
+    "/opt/X11/lib/libX11.6.dylib",    -- XQuartz
+    "/opt/local/lib/libX11.6.dylib",  -- MacPorts
+    "/sw/X11/lib/libX11.6.dylib",     -- Fink
+    "/opt/sw/X11/lib/libX11.6.dylib", -- Fink 0.45.2+
 }
 local _savedX11LibPath = settings.get(SETTINGS_TAG .. "_libPath")
 if _savedX11LibPath then table.insert(_X11LibPaths, 1, _savedX11LibPath) end
@@ -111,6 +112,21 @@ module.find = function(hint, exact, wins)
   if #r > 0 then return table.unpack(r) end
 end
 
+--- hs.window.x11._specifyLibraryPath(path) -> boolean[, msg]
+--- Function
+--- Manually specify the preferred path to libX11.6.dylib for runtime linking
+---
+--- Parameters:
+---  `path` - a string specifying the full path to the libX11.6.dylib library of the X11 installation you want this module to link against.
+---
+--- Returns:
+---  * true if the library is valid (correct architecture and includes the necessary functions), or false and an error message if the library is not usable.
+---
+--- Notes:
+---  * if the library is valid, it will be saved via `hs.settings` under the key "hs_window_x11_libPath" for use on subsequent launches.
+---  * if a previously loaded library succeeded, then you will need to restart Hammerspoon for the new library to take its place.
+---
+---  * Default paths for XQuartz, MacPorts, and Fink are already tried, so this function should only be required if you're installing in a different location or using another package manager.
 module._specifyLibraryPath = function(path)
     assert(type(path) == "string", "path must be specified as a string")
     -- this will be true if a library is already loaded
