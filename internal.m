@@ -74,7 +74,7 @@
 
 #import "X11uicore.h"
 
-static int refTable  = LUA_NOREF;
+static LSRefTable refTable  = LUA_NOREF;
 
 const char * const USERDATA_TAG = "hs.window.x11" ;
 NSString *defaultDisplayString = nil ;
