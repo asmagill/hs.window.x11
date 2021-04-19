@@ -643,7 +643,7 @@ static int pushHSX11Window(lua_State *L, id obj) {
     return 1;
 }
 
-id toHSX11WindowFromLua(lua_State *L, int idx) {
+static id toHSX11WindowFromLua(lua_State *L, int idx) {
     LuaSkin *skin = [LuaSkin sharedWithState:L] ;
     HSX11Window *value ;
     if (luaL_testudata(L, idx, USERDATA_TAG)) {
